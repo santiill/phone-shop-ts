@@ -1,6 +1,5 @@
 import React, {useEffect} from "react"
 import "./Main.css"
-import {getCookie} from "../../utils/cookieFunction";
 import MyNavbar from "../../components/navbar/Navbar";
 import DrinksFilters from "./DrinksFilters";
 import {Col, Pagination, Row} from "react-bootstrap";
@@ -45,16 +44,16 @@ export default function Main() {
                     })}
             </Row>
             <Pagination className="pagination_pages ">
-                {/*{pages.map(pN => (*/}
-                {/*    <Pagination.Item*/}
-                {/*        onClick={() => setPage(pN)}*/}
-                {/*        className="auth_input"*/}
-                {/*        key={pN}*/}
-                {/*        active={pN === page}*/}
-                {/*    >*/}
-                {/*        {pN}*/}
-                {/*    </Pagination.Item>*/}
-                {/*))}*/}
+                {pages.map(pN => (
+                    <Pagination.Item
+                        onClick={() => setPage(pN)}
+                        className="auth_input"
+                        key={pN}
+                        active={pN === page}
+                    >
+                        {pN}
+                    </Pagination.Item>
+                ))}
             </Pagination>
         </div>
     )

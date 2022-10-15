@@ -5,6 +5,7 @@ const token = getCookie("access")
 console.log(token)
 
 const tokenLocal = localStorage.getItem("token")
+
 // export const fetchAPI = axios.create({
 //     baseURL: "http://localhost:5000/api/",
 //     headers: {

@@ -1,6 +1,5 @@
 import React from "react"
 import { Button } from "react-bootstrap"
-import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
 import { NavLink } from "react-router-dom"
 import "./DrinkCard.css"
@@ -10,7 +9,6 @@ import {useAppDispatch} from "../../../app/hooks";
 
 export default function DrinkCard(props: DrinksProps) {
   const { drinks } = props
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const sendToBasketBtn = () => {
     dispatch(addDrinkToBasket({ drinkId: drinks.id, amount: 1 }))

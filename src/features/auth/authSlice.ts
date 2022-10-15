@@ -20,7 +20,6 @@ export const loginAsync = createAsyncThunk(
   async (data: Data) => {
     console.log(data)
     const response = await authRequests.login(data);
-    console.log("login", response.data);
       setCookie("token", response.data.token, 1)
       setCookie("role", response.data.role, 1)
       if(response.data.role == "admin"){
@@ -35,7 +34,6 @@ export const loginAsync = createAsyncThunk(
 export const registrationAsync = createAsyncThunk(
     'auth/registration',
     async (data: Data) => {
-        console.log("dd", data)
       const response = await authRequests.registration(data);
         alert("Успешно зарегистрировались")
 

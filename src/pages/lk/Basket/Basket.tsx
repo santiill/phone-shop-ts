@@ -1,17 +1,10 @@
 import React from "react"
 import { Button, Form, Modal } from "react-bootstrap"
-// import {
-//   getMyDrinks,
-//   addDrinkToMe,
-//   deleteDrinkFromBasket,
-// } from "../../../../store/actions/lk/basket"
-// import { addOrder } from "../../../../store/actions/lk/orders"
 import "./Basket.css"
 import BasketItem from "./BasketItem"
 import "./../../admin/Admin.css"
 import {useAppDispatch, useAppSelector} from "../../../app/hooks";
 import {getAllBasket} from "../../../features/user/orders/ordersSlice";
-import {BasketProps, handleChangeProps} from "../../../type/objTypes";
 
 
 export default function Basket() {

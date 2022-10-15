@@ -17,7 +17,6 @@ export const getAllOrders = createAsyncThunk(
     'orders/getAllOrders',
     async () => {
       const response = await userRequests.order.getAll();
-        console.log("allOrders", response.data)
       return response.data;
     }
 );
@@ -26,7 +25,6 @@ export const getAllBasket = createAsyncThunk(
     'orders/getAllBasket',
     async () => {
         const response = await userRequests.basket.getAll();
-        console.log("allBasket", response.data)
         return response.data;
     }
 );
@@ -36,7 +34,6 @@ export const deleteOrderBasket = createAsyncThunk(
     async (id: number, {dispatch}) => {
         const response = await userRequests.basket.delete(id);
         dispatch(getAllBasket())
-        console.log("deletedBasket", response.data)
         return response.data;
     }
 );

@@ -1,22 +1,9 @@
 import React from "react"
 import { Form, FormControl, InputGroup } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
-// import { getDrinksFiltered } from "../../../store/actions/admin/drinks"
-// import { getAllTypes } from "../../../store/actions/admin/types"
-
 export default function DrinksFilters({ paginationParams = {} }) {
   const [params, setParams] = React.useState({
     phoneName: "",
   })
-  // const dispatch = useDispatch()
-  // const searchBtn = () => {
-  //   dispatch(
-  //     getDrinksFiltered({
-  //       ...paginationParams,
-  //       phoneName: params.phoneName,
-  //     })
-  //   )
-  // }
   return (
       <div className='main_filters'>
         <InputGroup style={{ width: "50%" }}>
@@ -29,7 +16,7 @@ export default function DrinksFilters({ paginationParams = {} }) {
             placeholder='Введите название телефона'
           />
         </InputGroup>
-        <div /*onClick={searchBtn}*/ className='main_filters_search auth_input'>
+        <div className='main_filters_search auth_input'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='16'

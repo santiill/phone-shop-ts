@@ -1,6 +1,4 @@
 import React, {useEffect} from "react"
-import { useDispatch, useSelector } from "react-redux"
-// import { getAllOrders } from "../../../../store/actions/admin/orders"
 import MyOrderItem from "./MyOrderItem";
 import {getAllOrders} from "../../../features/user/orders/ordersSlice";
 import {useAppDispatch, useAppSelector} from "../../../app/hooks";

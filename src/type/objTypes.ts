@@ -11,11 +11,49 @@ export interface DataForAddingDrinkToBasket {
     drinkId: number,
 }
 
+export interface ReportDates {
+    startDate: string,
+    endDate: string,
+}
 
 export interface FilteredDrink {
     phoneName?: string,
     page: number,
     limit: number,
+}
+
+export interface ReceiptDrinkData {
+    drinkId: number,
+    amount: string,
+    isComing: boolean,
+    date: Date,
+    sum: string,
+}
+
+export interface addTypeData {
+    name: string,
+    brandId: string,
+    price: string,
+    amount: string,
+    logo: string,
+}
+
+export interface executeOrderData {
+    orderId: number,
+    drinks: [
+        {
+            id: number,
+            name: string,
+            order_phone: { amount: number },
+            price: number,
+        }
+    ],
+    status: number,
+}
+
+export interface editBrandData {
+    id: number,
+    name: string,
 }
 
 export type OrderProps = {
@@ -24,6 +62,7 @@ export type OrderProps = {
         date: number,
         sum: number,
         status: number,
+        user?: {email: string},
         phones: [
             {
                 id: number,
@@ -69,7 +108,6 @@ export type DrinksProps = {
     }
 }
 
-
 export type handleChangeProps = {
     data: {
         amount: number,
@@ -78,3 +116,4 @@ export type handleChangeProps = {
         name: string,
     }
 }
+

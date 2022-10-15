@@ -1,50 +1,46 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import "./Drinks.css"
-import { useDispatch, useSelector } from "react-redux"
 import { createPages } from "../../../../utils/pagesCreator"
 import { Pagination } from "react-bootstrap"
-// import { getDrinksFiltered } from "../../../../store/actions/admin/drinks.js"
-import { NavLink } from "react-router-dom"
 import { Button } from "react-bootstrap"
 import DrinkAccordion from "./DrinkAccordion"
+import {useAppDispatch, useAppSelector} from "../../../../app/hooks";
+import {getAllFilteredDrinks} from "../../../../features/user/main/mainSlice";
 
 export default function Drinks() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  // const allDrinks = useSelector(state => state.drinks.get)
-  // const totalCount = useSelector(state => state.drinks.total)
-  // const [page, setPage] = React.useState(1)
-  // const limit = 4
-  // const pages = []
-  // const pagesCount = Math.ceil(totalCount / limit)
-  // createPages(pages, pagesCount, page)
-  // React.useEffect(() => {
-  //   dispatch(getDrinksFiltered({ page, limit }))
-  // }, [page])
+  const {allDrinks, total, status} = useAppSelector(state => state.main)
+  const [page, setPage] = useState(1)
+  const limit = 4
+    const pages: number[] = []
+    const pagesCount = Math.ceil(total / limit)
+  createPages(pages, pagesCount, page)
+  useEffect(() => {
+    dispatch(getAllFilteredDrinks({ page, limit }))
+  }, [page])
 
   return (
     <div className="drinks">
-      <NavLink className="drinks_link" to="/admin/createPhone">
         <Button> Создать телефон</Button>
-      </NavLink>
       <h1 className="admin-pages_title">Телефоны</h1>
       <div>
-        {/*{allDrinks.success &&*/}
-        {/*  allDrinks.drinks.map(drink => {*/}
-        {/*    return <DrinkAccordion key={drink.id} drink={drink} />*/}
-        {/*  })}*/}
+        {status == "success" &&
+          allDrinks.map(drink => {
+            return <DrinkAccordion /*key={drink.id}*/ drinks={drink} />
+          })}
       </div>
       <Pagination className="pagination_pages ">
-        {/*{pages.map(pN => (*/}
-        {/*  <Pagination.Item*/}
-        {/*    onClick={() => setPage(pN)}*/}
-        {/*    className="auth_input"*/}
-        {/*    key={pN}*/}
-        {/*    active={pN === page}*/}
-        {/*  >*/}
-        {/*    {pN}*/}
-        {/*  </Pagination.Item>*/}
-        {/*))}*/}
+        {pages.map(pN => (
+          <Pagination.Item
+            onClick={() => setPage(pN)}
+            className="auth_input"
+            key={pN}
+            active={pN === page}
+          >
+            {pN}
+          </Pagination.Item>
+        ))}
       </Pagination>
     </div>
   )

@@ -1,7 +1,6 @@
 import React from "react"
 import { Outlet } from "react-router"
 import "./Lk.css"
-import {Navbar} from "react-bootstrap";
 import MyNavbar from "../../components/navbar/Navbar";
 
 export default function Lk() {
