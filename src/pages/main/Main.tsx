@@ -1,13 +1,19 @@
-import React from "react"
+import React, {useEffect} from "react"
 import "./Main.css"
 import {getCookie} from "../../utils/cookieFunction";
 import MyNavbar from "../../components/navbar/Navbar";
 import DrinksFilters from "./DrinksFilters";
-import {Pagination, Row} from "react-bootstrap";
+import {Col, Pagination, Row} from "react-bootstrap";
 import {createPages} from "../../utils/pagesCreator";
-import {useAppSelector} from "../../app/hooks";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {getAllFilteredDrinks} from "../../features/user/main/mainSlice";
+import DrinkCard from "./DrinkCard/DrinkCard";
 
 export default function Main() {
+
+    const role = useAppSelector(state => state.auth.role)
+    const {allDrinks, status} = useAppSelector(state => state.main)
+    const dispatch = useAppDispatch()
 
     const [page, setPage] = React.useState(1)
     const limit = 4
@@ -15,26 +21,28 @@ export default function Main() {
     const pagesCount = Math.ceil(10 / limit)
     createPages(pages, pagesCount, page)
 
-    const role = useAppSelector(state => state.auth.role)
+    useEffect(() => {
+        dispatch(getAllFilteredDrinks({ page, limit }))
+    }, [page])
 
     const navbarLinks =
         role === "admin"
             ? [{ path: "admin", text: "Личный кабинет" }]
             : [{ path: "lk", text: "Личный кабинет" }]
-
+    let phoneNumber: string = ''
     return (
         <div className="admin main container">
             <MyNavbar data={navbarLinks} />
-            <DrinksFilters paginationParams={{ page, limit }} />
+            <DrinksFilters paginationParams={{ page, limit, phoneNumber }} />
             <Row className="main_drinks_row gy-5">
-                {/*{allDrinks.success &&*/}
-                {/*    allDrinks.drinks.map(drink => {*/}
-                {/*        return (*/}
-                {/*            <Col key={drink.id} sm>*/}
-                {/*                <DrinkCard data={drink} />*/}
-                {/*            </Col>*/}
-                {/*        )*/}
-                {/*    })}*/}
+                {status == "success" &&
+                    allDrinks?.map(drink => {
+                        return (
+                            <Col /*key={drink.id}*/ sm>
+                                <DrinkCard drinks={drink} />
+                            </Col>
+                        )
+                    })}
             </Row>
             <Pagination className="pagination_pages ">
                 {/*{pages.map(pN => (*/}

@@ -1,24 +1,24 @@
-import React from "react"
+import React, {useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux"
-// import { getUserOrders } from "../../../../store/actions/lk/orders"
-import MyOrderItem from "./MyOrderItem"
-import "./MyOrders.css"
-import "./../../admin/Admin.css"
+// import { getAllOrders } from "../../../../store/actions/admin/orders"
+import MyOrderItem from "./MyOrderItem";
+import {getAllOrders} from "../../../features/user/orders/ordersSlice";
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
 
 export default function MyOrders() {
-  const dispatch = useDispatch()
-  // const myOrders = useSelector(state => state.userOrders.get)
-  // React.useEffect(() => {
-  //   dispatch(getUserOrders())
-  // }, [])
-  // console.log(myOrders)
-  return (
-    <div className='orders'>
-      <h1 className='admin-pages_title'>Мои заказы</h1>
-      {/*{myOrders.success &&*/}
-      {/*  myOrders.orders.map(o => {*/}
-      {/*    return <MyOrderItem key={o.id} order={o} />*/}
-      {/*  })}*/}
-    </div>
-  )
+    const dispatch = useAppDispatch()
+    const orders = useAppSelector(state => state.orders)
+    useEffect(() => {
+        dispatch(getAllOrders())
+        console.log("orderess")
+    }, [])
+    return (
+        <div className='orders'>
+            <div className='admin-pages_title'>Заказы</div>
+            {orders.status == "success" &&
+                orders.allOrders.map(o => {
+                    return <MyOrderItem /*key={o.id : number}*/ order={o} />
+                })}
+        </div>
+    )
 }

@@ -12,7 +12,7 @@ import Brands from "../pages/admin/components/Brands/Brands";
 import Drinks from "../pages/admin/components/Drinks/Drinks";
 import CreateDrink from "../pages/admin/components/Drinks/CreateDrink";
 import {Reports} from "../pages/admin/components/Reports/Reports";
-import Orders from "../pages/admin/components/Orders/Orders";
+// import Orders from "../pages/admin/components/Orders/Orders";
 
 const MyRoutes = () => {
   return (
@@ -21,7 +21,7 @@ const MyRoutes = () => {
           <Route element={<Main />} path='/' />
           <Route element={<Auth2 />} path='/auth' />
           {/*<Route element={<Admin />} path='/admin' />*/}
-          <Route element={<Lk />} path='/lk' />
+          {/*<Route element={<Lk />} path='/lk' />*/}
           <Route
               element={
                   // <RequiredAuth roles={roles.ADMIN}/>
@@ -31,9 +31,9 @@ const MyRoutes = () => {
           >
               <Route element={<Brands />} index />
               <Route element={<Drinks />} path='projections' />
-              <Route element={<Orders />} path='orders' />
+              {/*<Route element={<Orders />} path='orders' />*/}
               <Route element={<Reports />} path='reports' />
-              <Route element={<CreateDrink />} path='createPhone' />
+              <Route element={<CreateDrink />} path='createDrink' />
           </Route>
           <Route
               element={

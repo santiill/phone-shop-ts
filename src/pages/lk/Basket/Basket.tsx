@@ -1,6 +1,5 @@
 import React from "react"
 import { Button, Form, Modal } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
 // import {
 //   getMyDrinks,
 //   addDrinkToMe,
@@ -10,13 +9,17 @@ import { useDispatch, useSelector } from "react-redux"
 import "./Basket.css"
 import BasketItem from "./BasketItem"
 import "./../../admin/Admin.css"
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
+import {getAllBasket} from "../../../features/user/orders/ordersSlice";
+import {BasketProps, handleChangeProps} from "../../../type/objTypes";
 
 
 export default function Basket() {
-  const dispatch = useDispatch()
-  // React.useEffect(() => {
-  //   dispatch(getMyDrinks())
-  // }, [])
+  const dispatch = useAppDispatch()
+  const {status, allBasket} = useAppSelector(state => state.orders)
+  React.useEffect(() => {
+    dispatch(getAllBasket())
+  }, [])
   const [show, setShow] = React.useState(false)
 
   const handleClose = () => setShow(false)
@@ -32,17 +35,17 @@ export default function Basket() {
   //   setShow(false)
   // }
 
-  // const allItems = useSelector(state => state.basket.get)
+
   const [checkedItems, setCheckedItems] = React.useState([])
-  // const handleChange = data => {
+  // const handleChange = (props: handleChangeProps) => {
   //   const candidateChecked = checkedItems
   //   const findIdx = candidateChecked.findIndex(
-  //     obj => obj.drinkId == data.drinkId
+  //     obj => obj.drinkId == props.data.drinkId
   //   )
   //   if (findIdx > -1) {
   //     candidateChecked.splice(findIdx, 1)
   //   } else {
-  //     candidateChecked.push(data)
+  //     candidateChecked.push(props.data)
   //   }
   //   setCheckedItems(candidateChecked)
   // }
@@ -56,27 +59,27 @@ export default function Basket() {
   return (
     <div className="basket">
       <h1 className="admin-pages_title">Корзина</h1>
-      {/*{allItems.loading && <div>Загрузка...</div>}*/}
-      {/*{allItems.success &&*/}
-      {/*  allItems.drinks.map(drink => (*/}
-      {/*    <BasketItem*/}
-      {/*      handleChange={handleChange}*/}
-      {/*      key={drink.id}*/}
-      {/*      drink={drink}*/}
-      {/*    />*/}
-      {/*  ))}*/}
-      {/*{allItems.success && allItems.drinks.length <= 0 && (*/}
-      {/*  <>*/}
-      {/*    <div>Корзина пуста</div>*/}
-      {/*  </>*/}
-      {/*)}*/}
-      {/*{allItems.success && allItems.drinks.length > 0 && (*/}
-      {/*  <>*/}
-      {/*    <Button onClick={makeOrderBtn} className="basket_btn">*/}
-      {/*      Заказать*/}
-      {/*    </Button>*/}
-      {/*  </>*/}
-      {/*)}*/}
+      {status == "loading" && <div>Загрузка...</div>}
+      {status == "success" &&
+        allBasket.map(drink => (
+          <BasketItem
+            // handleChange={handleChange}
+            // key={drink.id}
+            drink={drink}
+          />
+        ))}
+      {status == "success" && allBasket.length <= 0 && (
+        <>
+          <div>Корзина пуста</div>
+        </>
+      )}
+      {status == "success" && allBasket.length > 0 && (
+        <>
+          <Button onClick={makeOrderBtn} className="basket_btn">
+            Заказать
+          </Button>
+        </>
+      )}
 
       <Modal className="basket_modal" show={show} onHide={handleClose}>
         <Modal.Header closeButton>

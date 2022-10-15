@@ -1,5 +1,3 @@
-// A mock function to mimic making an async request for data
-// import {fetchAPI} from "../../utils/fetchCreateFunction";
 import axios from "axios";
 import {Data} from "../../type/objTypes";
 

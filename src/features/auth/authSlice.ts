@@ -1,10 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-// import { RootState, AppThunk } from '../../app/store';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {authRequests} from "./authAPI";
-import notifications from "../../utils/notifications";
 import {Data} from "../../type/objTypes";
-import {store} from "react-notifications-component";
-import {useNavigate} from "react-router";
 import {setCookie} from "../../utils/cookieFunction";
 
 export interface AuthState {
@@ -19,10 +15,6 @@ const initialState: AuthState = {
     role: 'user',
 };
 
-// type Not = {
-//     any[]: any[]
-// };
-
 export const loginAsync = createAsyncThunk(
   'auth/login',
   async (data: Data) => {
@@ -31,7 +23,6 @@ export const loginAsync = createAsyncThunk(
     console.log("login", response.data);
       setCookie("token", response.data.token, 1)
       setCookie("role", response.data.role, 1)
-    // alert("Успешно авторизовались")
       if(response.data.role == "admin"){
           data.navigate("/admin")
       }else {
@@ -72,18 +63,5 @@ export const authSlice = createSlice({
       });
   },
 });
-
-// export const { increment, decrement, incrementByAmount } = authSlice.actions;
-
-// export const selectCount = (state: RootState) => state.counter.value;
-//
-// export const incrementIfOdd =
-//   (amount: number): AppThunk =>
-//   (dispatch, getState) => {
-//     const currentValue = selectCount(getState());
-//     if (currentValue % 2 === 1) {
-//       dispatch(incrementByAmount(amount));
-//     }
-//   };
 
 export default authSlice.reducer;

@@ -18,7 +18,6 @@ export default function DrinksFilters({ paginationParams = {} }) {
   //   )
   // }
   return (
-    
       <div className='main_filters'>
         <InputGroup style={{ width: "50%" }}>
           <FormControl
